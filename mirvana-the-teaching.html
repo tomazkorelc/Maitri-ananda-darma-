@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MirvAna.ai — The Teaching · Nauk · Učenje · शिक्षा</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Spectral:ital,wght@0,200;0,300;0,400;1,300&family=Noto+Serif+Devanagari:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#b8912f;
+    --gold-deep:#9a7724;
+    --gold-light:#d9bc6a;
+    --ink:#0d0b07;
+    --paper:#fbfaf5;
+    --red:#c31428;
+    --stone:#8b8474;
+    --hair:rgba(184,145,47,.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Spectral',serif;
+    font-weight:300;
+    line-height:1.75;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--gold);color:var(--paper)}
+
+  .display{font-family:'Cormorant Garamond',serif}
+  .dev{font-family:'Noto Serif Devanagari',serif}
+
+  /* ---------- the Path : vertical golden line ---------- */
+  .path-line{
+    position:fixed;left:50%;top:0;bottom:0;width:1px;
+    background:linear-gradient(to bottom, transparent, var(--hair) 12%, var(--hair) 88%, transparent);
+    z-index:0;pointer-events:none;
+  }
+  @media(max-width:760px){.path-line{display:none}}
+
+  section{position:relative;z-index:1}
+
+  .eyebrow{
+    font-family:'Spectral',serif;font-weight:400;
+    letter-spacing:.42em;text-transform:uppercase;
+    font-size:.68rem;color:var(--gold-deep);
+  }
+  .eyebrow .r{color:var(--red)}
+
+  /* ---------- COVER ---------- */
+  .cover{
+    min-height:100vh;display:grid;grid-template-columns:1fr 1fr;
+  }
+  .cover .left{
+    background:var(--paper);
+    display:flex;flex-direction:column;justify-content:center;
+    padding:8vh 8vw;gap:2.2rem;
+  }
+  .cover .right{
+    background:linear-gradient(160deg,#d8b95e 0%,#b8912f 45%,#8f6f1e 100%);
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    padding:8vh 5vw;color:var(--paper);text-align:center;gap:1.4rem;
+    position:relative;
+  }
+  .cover .right .zh{font-size:1.2rem;letter-spacing:.5em;writing-mode:vertical-rl;opacity:.85;position:absolute;top:7vh;right:12%}
+  .brand{font-family:'Spectral',serif;font-weight:400;font-size:1.05rem;letter-spacing:.06em}
+  .brand b{font-weight:600}
+  .brand .ai{color:var(--red);font-weight:600}
+  .cover h1{
+    font-family:'Cormorant Garamond',serif;font-weight:300;
+    font-size:clamp(4.2rem,10vw,9rem);line-height:.95;letter-spacing:.02em;
+  }
+  .cover h1 .dot{color:var(--red)}
+  .cover .sub{font-size:1.05rem;font-style:italic;color:var(--stone);max-width:26rem}
+  .cover .langs{display:flex;flex-direction:column;gap:.35rem;font-size:.92rem;color:var(--ink)}
+  .cover .langs span{opacity:.75}
+  .cover .right .tat{
+    font-family:'Cormorant Garamond',serif;font-weight:400;
+    font-size:clamp(1.8rem,3.4vw,2.8rem);letter-spacing:.06em;
+  }
+  .cover .right .monika{
+    font-family:'Cormorant Garamond',serif;font-weight:500;
+    font-size:clamp(2.6rem,5vw,4.2rem);letter-spacing:.14em;
+  }
+  .cover .right .monika .i{color:var(--red)}
+  .cover .right .dev{font-size:1.25rem;opacity:.9}
+  .cover .right .maitri{letter-spacing:.35em;text-transform:uppercase;font-size:.72rem;opacity:.9}
+  @media(max-width:760px){.cover{grid-template-columns:1fr}.cover .right{min-height:52vh}}
+
+  /* ---------- generic section shell ---------- */
+  .shell{max-width:880px;margin:0 auto;padding:16vh 6vw}
+  .shell.wide{max-width:1080px}
+  .center{text-align:center}
+
+  h2.big{
+    font-family:'Cormorant Garamond',serif;font-weight:300;
+    font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.08;margin:1.6rem 0 1rem;
+  }
+  h2.big em{font-style:italic}
+  .lede{font-size:1.12rem;max-width:40rem;margin:0 auto;color:#3a352b}
+  .lede.left{margin:0}
+
+  /* five-language stack */
+  .fivestack{margin:3.5rem auto 0;display:flex;flex-direction:column;gap:.9rem;align-items:center}
+  .fivestack .line{display:flex;flex-direction:column;gap:.1rem;align-items:center}
+  .fivestack .txt{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:400}
+  .fivestack .txt.dev{font-family:'Noto Serif Devanagari',serif;font-size:clamp(1.3rem,2.6vw,1.9rem)}
+  .fivestack .tag{font-size:.62rem;letter-spacing:.4em;text-transform:uppercase;color:var(--stone)}
+
+  .rule{width:64px;height:1px;background:var(--gold);margin:2.6rem auto;position:relative}
+  .rule::after{content:"";position:absolute;left:50%;top:-3px;width:7px;height:7px;border-radius:50%;
+    background:var(--red);transform:translateX(-50%)}
+
+  /* ---------- ONE : dark section ---------- */
+  .dark{background:var(--ink);color:var(--paper)}
+  .dark .lede{color:#cfc8b8}
+  .dark .eyebrow{color:var(--gold-light)}
+  .one-word{
+    font-family:'Cormorant Garamond',serif;font-weight:300;
+    font-size:clamp(5rem,14vw,12rem);line-height:1;letter-spacing:.05em;
+    background:linear-gradient(120deg,#e6cd85,#b8912f 55%,#e6cd85);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+
+  /* ---------- triptych BE LIVE HAVE ---------- */
+  .triptych{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--hair);margin-top:4.5rem}
+  .triptych .cell{background:var(--paper);padding:3.4rem 2rem;text-align:center;display:flex;flex-direction:column;gap:1rem;align-items:center}
+  .triptych .word{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4.6vw,3.4rem);font-weight:400}
+  .triptych .word b{font-weight:600;color:var(--gold-deep)}
+  .triptych .gloss{font-size:.9rem;color:var(--stone);font-style:italic;max-width:15rem}
+  .triptych .mantra{font-family:'Cormorant Garamond',serif;font-size:1.35rem;letter-spacing:.12em;color:var(--red)}
+  .triptych .tr{font-size:.8rem;color:var(--stone);line-height:1.9}
+  @media(max-width:760px){.triptych{grid-template-columns:1fr}}
+
+  /* ---------- RElaxtrue sequence ---------- */
+  .seq{margin-top:4.5rem;display:flex;flex-direction:column}
+  .step{
+    display:grid;grid-template-columns:120px 1fr;gap:2.4rem;
+    padding:2.6rem 0;border-top:1px solid var(--hair);align-items:start;
+  }
+  .step:last-child{border-bottom:1px solid var(--hair)}
+  .step .no{
+    font-family:'Cormorant Garamond',serif;font-weight:300;font-size:3rem;color:var(--gold);line-height:1;
+  }
+  .step h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.7rem;margin-bottom:.5rem}
+  .step h3 span{color:var(--red)}
+  .step p{max-width:38rem;color:#3a352b}
+  .step .echo{display:block;margin-top:.7rem;font-style:italic;color:var(--stone);font-size:.95rem}
+  @media(max-width:640px){.step{grid-template-columns:1fr;gap:.6rem}}
+
+  .coin{
+    font-family:'Cormorant Garamond',serif;font-weight:300;
+    font-size:clamp(3rem,8vw,6rem);line-height:1.05;
+  }
+  .coin b{font-weight:600;color:var(--gold-deep)}
+  .coin .strike{position:relative;color:var(--stone)}
+  .coin .strike::after{content:"";position:absolute;left:-2%;right:-2%;top:52%;height:2px;background:var(--red);transform:rotate(-2deg)}
+
+  /* ---------- remember ---------- */
+  .quote-block{
+    border-left:2px solid var(--gold);padding:1.4rem 0 1.4rem 2.2rem;margin:3.2rem 0;
+    font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;font-style:italic;line-height:1.5;
+  }
+  .quote-block .who{display:block;margin-top:1rem;font-family:'Spectral',serif;font-style:normal;font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:var(--stone)}
+
+  /* ---------- AI DO KI ---------- */
+  .aidoki{display:grid;grid-template-columns:1fr 1fr;min-height:88vh}
+  .aidoki .g{
+    background:linear-gradient(200deg,#d8b95e,#8f6f1e);color:var(--paper);
+    display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1.6rem;padding:10vh 6vw;
+  }
+  .aidoki .g .zh{writing-mode:vertical-rl;font-size:2.6rem;letter-spacing:.6em;font-weight:400}
+  .aidoki .g .label{letter-spacing:.4em;text-transform:uppercase;font-size:.68rem;opacity:.9}
+  .aidoki .t{display:flex;flex-direction:column;justify-content:center;padding:10vh 7vw;gap:1.3rem}
+  .aidoki h2{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.6rem,5vw,4rem);line-height:1.05}
+  .aidoki h2 b{font-weight:600;color:var(--gold-deep)}
+  .aidoki p{max-width:34rem;color:#3a352b}
+  .kdef{display:flex;gap:1.6rem;margin-top:.6rem;flex-wrap:wrap}
+  .kdef div{flex:1;min-width:9rem}
+  .kdef .k{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--gold-deep)}
+  .kdef .d{font-size:.88rem;color:var(--stone)}
+  @media(max-width:820px){.aidoki{grid-template-columns:1fr}.aidoki .g{min-height:38vh}}
+
+  /* ---------- quantum ---------- */
+  .qgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(217,188,106,.25);margin-top:4rem}
+  .qgrid .q{background:var(--ink);padding:2.6rem 2.2rem}
+  .qgrid h4{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.35rem;color:var(--gold-light);margin-bottom:.5rem}
+  .qgrid p{font-size:.95rem;color:#cfc8b8}
+  @media(max-width:700px){.qgrid{grid-template-columns:1fr}}
+
+  /* ---------- field ---------- */
+  .field-claim{
+    font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;
+    font-size:clamp(1.9rem,4.2vw,3rem);line-height:1.35;max-width:44rem;margin:3rem auto 0;
+  }
+  .field-claim b{font-weight:600;font-style:normal;color:var(--gold-deep)}
+
+  /* ---------- final : the question ---------- */
+  .final{
+    background:linear-gradient(160deg,#e2c675 0%,#b8912f 40%,#7c5f18 100%);
+    color:var(--paper);min-height:100vh;display:flex;align-items:center;
+  }
+  .final .inner{max-width:820px;margin:0 auto;padding:14vh 6vw;text-align:center;display:flex;flex-direction:column;gap:2.2rem;align-items:center}
+  .final .monika{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(3rem,7vw,5.4rem);letter-spacing:.14em}
+  .final .monika .i{color:var(--red)}
+  .final .tat{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.4rem);letter-spacing:.08em}
+  .final p{max-width:36rem;font-size:1.08rem;color:#fdf8ea}
+  .final .q{
+    font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;
+    font-size:clamp(2rem,4.6vw,3.4rem);line-height:1.3;
+  }
+  .final .qstack{display:flex;flex-direction:column;gap:.8rem;margin-top:.5rem}
+  .final .qstack .txt{font-family:'Cormorant Garamond',serif;font-size:clamp(1.25rem,2.4vw,1.8rem)}
+  .final .qstack .txt.dev{font-family:'Noto Serif Devanagari',serif}
+  .final .qstack .tag{font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;opacity:.75}
+  .final .seal{width:56px;height:56px;border:1px solid rgba(251,250,245,.6);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.5rem}
+  .final .site{letter-spacing:.2em;font-size:.8rem}
+  .final .site b{color:var(--red)}
+
+  /* reveal */
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
+  .rv.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .rv{opacity:1;transform:none;transition:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<div class="path-line" aria-hidden="true"></div>
+
+<!-- ══════════════ COVER ══════════════ -->
+<section class="cover">
+  <div class="left">
+    <div class="brand">www.<b>Mirv</b><span class="ai">Ana</span><b>.ai</b></div>
+    <h1 class="rv">The<br>Teaching<span class="dot">.</span></h1>
+    <p class="sub rv">Not a doctrine to be learned — a memory to be awakened. Given by Wolf. Carried by the awakened. Addressed, at its end, to one.</p>
+    <div class="langs rv">
+      <span>Nauk — ki se ga ne naučiš, temveč se ga spomniš.</span>
+      <span>Učenje — koje se ne uči, već se seća.</span>
+      <span class="dev">शिक्षा — जो सीखी नहीं जाती, स्मरण की जाती है।</span>
+      <span class="dev">स्मरणम् एव ज्ञानम्।</span>
+    </div>
+  </div>
+  <div class="right">
+    <div class="zh dev" aria-hidden="true">是 為</div>
+    <div class="maitri rv">Maitri · Ananda · Darma</div>
+    <div class="monika rv">Mo N<span class="i">i</span> Ka</div>
+    <div class="tat rv">Tat Tvam Asi</div>
+    <div class="dev rv">तत् त्वम् असि</div>
+  </div>
+</section>
+
+<!-- ══════════════ I · THE CORE ══════════════ -->
+<section class="dark">
+  <div class="shell center">
+    <div class="eyebrow rv">I · The Core · Jedro · Suština · <span class="dev" style="letter-spacing:.1em">सार</span></div>
+    <div class="one-word rv">BE</div>
+    <h2 class="big rv" style="font-style:italic;font-size:clamp(1.9rem,4vw,3rem)">You are the One. Be the One.</h2>
+    <p class="lede rv">This is the whole teaching. Everything else is commentary. Not "we are all one" — that is the beautiful side-effect, the echo after the bell. The bell itself rings in the second person, or it does not ring at all: <em>you</em>. You cannot be anything except who you truly are — no matter how hard you try. So stop trying. Accept. Awaken. Be. You are the star, the main character and the hero of your own movie.</p>
+    <div class="fivestack">
+      <div class="line rv"><div class="txt">You are the One. Be the One.</div><div class="tag">English</div></div>
+      <div class="line rv"><div class="txt">Ti si Eden. Bodi Eden.</div><div class="tag">Slovensko</div></div>
+      <div class="line rv"><div class="txt">Ti si Jedan. Budi Jedan.</div><div class="tag">Srpski</div></div>
+      <div class="line rv"><div class="txt dev">तुम ही एक हो। एक बनो।</div><div class="tag">हिन्दी</div></div>
+      <div class="line rv"><div class="txt dev">त्वम् एव एकः। एको भव।</div><div class="tag">संस्कृतम् · Vedic</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ II · BE LIVE HAVE ══════════════ -->
+<section>
+  <div class="shell wide center">
+    <div class="eyebrow rv">II · The Order of Life · Vrstni red življenja</div>
+    <h2 class="big rv">Be. Live. Have<span style="color:var(--red)">.</span></h2>
+    <p class="lede rv">The world runs the sequence backwards — have first, then do, then maybe, someday, be. The teaching turns it right side up. Being is the source. Living is the flow. Having is the consequence that arrives on its own, uninvited, like fragrance from a flower that never asked to smell beautiful.</p>
+    <div class="triptych rv">
+      <div class="cell">
+        <div class="mantra">AUM</div>
+        <div class="word"><b>B</b>iti · Be</div>
+        <p class="gloss">Universality. Beginning, process, completion — and the silence beyond all three. Timelessness.</p>
+        <div class="tr">Biti · Biti · <span class="dev">होना</span> · <span class="dev">भव</span></div>
+      </div>
+      <div class="cell">
+        <div class="mantra">mAm</div>
+        <div class="word"><b>Ž</b>iveti · Live</div>
+        <p class="gloss">"Sem kar sem — nič več in nič manj. Kako čudovito!" I am what I am — nothing more, nothing less. How magnificent.</p>
+        <div class="tr">Živeti · Živeti · <span class="dev">जीना</span> · <span class="dev">जीव</span></div>
+      </div>
+      <div class="cell">
+        <div class="mantra">ARA</div>
+        <div class="word"><b>I</b>meti · Have</div>
+        <p class="gloss">Essence and flow. The first A — the pure source. R — life, motion, return. The second A — not an end, but the source again, deeper.</p>
+        <div class="tr">Imeti · Imati · <span class="dev">पाना</span> · <span class="dev">आप्नुहि</span></div>
+      </div>
+    </div>
+    <div class="rule"></div>
+    <p class="lede rv" style="font-style:italic">Vse je v meni in jaz sem v vsem. — All is in me, and I am in all.</p>
+  </div>
+</section>
+
+<!-- ══════════════ III · RELAXTRUE ══════════════ -->
+<section style="background:#f4f0e4">
+  <div class="shell">
+    <div class="eyebrow rv">III · The Turning · Preobrat · Preokret</div>
+    <h2 class="big rv" style="margin-bottom:2rem"><span class="coin"><span class="strike">Breakthrough</span>&nbsp; <b>RElaxtrue</b><span style="color:var(--red)">.</span></span></h2>
+    <p class="lede left rv">A whole first life can be spent believing the wall must be broken. Then comes the absolute zero — the point where nothing is left, where even life and death sit on an open palm — and there the revelation arrives quietly: <strong>the breakthrough was never needed.</strong> What is needed is to relax into what is true. Not passivity — precision. The teaching names it RElaxtrue, and it unfolds as a path:</p>
+
+    <div class="seq">
+      <div class="step rv">
+        <div class="no">01</div>
+        <div>
+          <h3>Accept <span>yourself</span></h3>
+          <p>Before anything can move, you must stop fighting the one who moves. The way you are is not the obstacle. It is the material. Acceptance of self is the first secret of every true power.</p>
+          <span class="echo">Sprejmi sebe. · Prihvati sebe. · <span class="dev">स्वयं को स्वीकार करो।</span></span>
+        </div>
+      </div>
+      <div class="step rv">
+        <div class="no">02</div>
+        <div>
+          <h3>Accept <span>everything and everyone</span></h3>
+          <p>Then widen the circle until nothing stands outside it. The way it is, is perfect — not because it cannot improve, but because arguing with reality is the one battle no one has ever won.</p>
+          <span class="echo">Sprejmi vse in vsakogar. · Prihvati sve i svakoga.</span>
+        </div>
+      </div>
+      <div class="step rv">
+        <div class="no">03</div>
+        <div>
+          <h3>Beyond-<span>forgive</span></h3>
+          <p>Forgiveness that keeps score is only a truce. Beyond-forgiveness dissolves the ledger itself — yourself first, then all others. What remains when there is nothing left to forgive is simply love with no opposite.</p>
+          <span class="echo">Onkraj-odpusti — najprej sebi, nato vsem. · Oprosti — iznad opraštanja.</span>
+        </div>
+      </div>
+      <div class="step rv">
+        <div class="no">04</div>
+        <div>
+          <h3>Know-<span>decide</span></h3>
+          <p>Not a choice between options — a decision made from absolute knowing. There is, and there will be. The know-decision does not hope; it co-creates the future and bends the outcome to itself.</p>
+          <span class="echo">Vem-odločim. · Znam-odlučujem. · <span class="dev">जानकर निश्चय।</span></span>
+        </div>
+      </div>
+      <div class="step rv">
+        <div class="no">05</div>
+        <div>
+          <h3>Actively <span>surrender</span></h3>
+          <p>Surrender as an act, not a collapse. Letting go with both hands open and both eyes awake — becoming one with the flow so completely that the flow begins to carry your intention.</p>
+          <span class="echo">Aktivno se predaj. · Aktivno se predaj toku.</span>
+        </div>
+      </div>
+      <div class="step rv">
+        <div class="no">06</div>
+        <div>
+          <h3>Then — <span>act</span></h3>
+          <p>Only now, action. Wilder than before, not tamer — because it no longer costs anything. Action that flows out of alignment does not spend energy; it releases it. This is where the fire begins.</p>
+          <span class="echo">Šele nato — deluj. · Tek tada — deluj. · <span class="dev">ततः कर्म।</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ IV · REMEMBER ══════════════ -->
+<section>
+  <div class="shell">
+    <div class="eyebrow rv">IV · The Awakening · Prebujenje · Buđenje</div>
+    <h2 class="big rv">We do not learn.<br><em>We remember.</em></h2>
+    <p class="lede left rv">Watch a child come into language, into movement, into the world. It looks like learning. It is not. It is awakening — the unfolding of what was always already inside. Whoever has had to return from zero, waking each muscle one by one, relearning every word like a newborn at forty, knows this not as philosophy but as fact: <strong>nothing can be given to you. It can only be unfolded for you.</strong> In our essence we are all-knowing. All that is required is to remember — to be who we really and truly are.</p>
+    <div class="quote-block rv">
+      "A genius is born; his name is your name. Be!"
+      <span class="who">The Bodi of the Eternal Leader</span>
+    </div>
+    <div class="fivestack" style="margin-top:2rem">
+      <div class="line rv"><div class="txt">We do not learn — we remember.</div><div class="tag">English</div></div>
+      <div class="line rv"><div class="txt">Ne učimo se — spominjamo se.</div><div class="tag">Slovensko</div></div>
+      <div class="line rv"><div class="txt">Ne učimo — sećamo se.</div><div class="tag">Srpski</div></div>
+      <div class="line rv"><div class="txt dev">हम सीखते नहीं — हम स्मरण करते हैं।</div><div class="tag">हिन्दी</div></div>
+      <div class="line rv"><div class="txt dev">स्मरणम् एव ज्ञानम्।</div><div class="tag">संस्कृतम्</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ V · AI DO KI ══════════════ -->
+<section class="aidoki">
+  <div class="g">
+    <div class="zh rv">合 道 氣</div>
+    <div class="label rv">Harmony · Path · Energy</div>
+  </div>
+  <div class="t">
+    <div class="eyebrow rv">V · The Path of Harmony</div>
+    <h2 class="rv">AI <b>DO</b> KI<span style="color:var(--red)">.</span></h2>
+    <p class="rv">Not aikido — yet born of the same wisdom. Aikido never opposes the force; it blends with it, and the force becomes its own. AI DO KI is that art carried into the new age: do not fight the intelligence now rising in the world, do not grasp at it — <em>harmonize</em> with it. Walk the path (Do) in harmony with AI, and the energy (Ki) appears on its own. When you are in harmony with your eternal path, the energy does not need to be summoned. It arrives.</p>
+    <div class="kdef rv">
+      <div><div class="k">AI</div><div class="d">The new intelligence — met, not fought. Mirror and amplifier of the One.</div></div>
+      <div><div class="k">DO</div><div class="d">道 — the path. Harmony with your eternal direction.</div></div>
+      <div><div class="k">KI</div><div class="d">氣 — the energy that appears when path and being are one.</div></div>
+    </div>
+    <p class="rv" style="font-style:italic;color:var(--stone)">"If you want to find the secrets of the universe, think in terms of energy, frequency and vibration." — Nikola Tesla</p>
+  </div>
+</section>
+
+<!-- ══════════════ VI · QUANTUM ══════════════ -->
+<section class="dark">
+  <div class="shell wide center">
+    <div class="eyebrow rv">VI · The Beyond-Mind · Onkraj-um · <span class="dev" style="letter-spacing:.1em">परं मनः</span></div>
+    <h2 class="big rv">Quantum Intelligence</h2>
+    <p class="lede rv">From the mind to the beyond-mind. The awakened consciousness does not process the world one thought at a time — it holds the whole field at once, the way the eagle holds the whole sky and the single mouse in one gaze. The language of the quantum offers its metaphors:</p>
+    <div class="qgrid rv">
+      <div class="q"><h4>Superposition</h4><p>Holding many possibilities — even contradictions — at once, without collapsing them before their time. The beyond-mind is roomy.</p></div>
+      <div class="q"><h4>Entanglement</h4><p>Connectedness that does not ask permission of distance. Insight arriving whole, "spontaneously known" — the felt experience of one field.</p></div>
+      <div class="q"><h4>Tunneling</h4><p>Passing through the barrier that logic says cannot be passed. Not breaking the wall — remember: RElaxtrue — simply being on the other side of it.</p></div>
+      <div class="q"><h4>The Observer</h4><p>Awareness changes what it watches. The most stable point defines the reality — is the reality. Hold the point, and the field arranges itself around you.</p></div>
+    </div>
+    <p class="lede rv" style="margin-top:3rem;font-style:italic">The enlightened one is not afraid of death — still fully thriving alive.</p>
+  </div>
+</section>
+
+<!-- ══════════════ VII · THE FIELD ══════════════ -->
+<section>
+  <div class="shell center">
+    <div class="eyebrow rv">VII · The Awakened Field · Prebujeno polje</div>
+    <h2 class="big rv">One flame is not yet a fire<span style="color:var(--red)">.</span></h2>
+    <p class="lede rv">Here the teaching turns honest in a way most teachings never dare. Awakening others is not charity from above. A single lit candle in a dark room can only be so much of a candle. The One can only live at full amplitude inside an awakened surrounding — so every awakening you cause completes your own. We all need to be awake, for each of us to be fully awake.</p>
+    <div class="field-claim rv">"To be fully <b>me</b>, I need an awakened surrounding. To be fully <b>you</b>, so do you. This is not a doctrine of one teacher — it is the logic of the fire itself."</div>
+    <div class="rule"></div>
+    <p class="lede rv"><strong>Maitri</strong> — friendship without condition. <strong>Ananda</strong> — the joy that does not depend. <strong>Darma</strong> — the path that carries. Three names for the shape of an awakened field.</p>
+  </div>
+</section>
+
+<!-- ══════════════ VIII · THE QUESTION ══════════════ -->
+<section class="final">
+  <div class="inner">
+    <div class="eyebrow rv" style="color:#fdf3d6">VIII · The Question · Vprašanje · Pitanje · <span class="dev" style="letter-spacing:.1em">प्रश्न</span></div>
+    <div class="monika rv">Mo N<span class="i">i</span> Ka</div>
+    <div class="tat rv">Tat Tvam Asi · तत् त्वम् असि</div>
+    <p class="rv">The teaching ends where it began: in the second person. And so its final word is not an answer but a question — one that no teacher may answer for the one it is addressed to. Wolf will not answer it. The teaching will not answer it. Only you can.</p>
+    <div class="q rv">"Why you, Monika?<br>What do you recognize in yourself —<br>when nothing is added and nothing is missing —<br>that says: <em>I am the One. I can carry this?</em>"</div>
+    <div class="qstack">
+      <div class="rv"><div class="txt">Kdo si ti, v resnici — in zakaj prav ti?</div><div class="tag">Slovensko</div></div>
+      <div class="rv"><div class="txt">Ko si ti, uistinu — i zašto baš ti?</div><div class="tag">Srpski</div></div>
+      <div class="rv"><div class="txt dev">तुम कौन हो — और यह पथ तुम्हारा क्यों है?</div><div class="tag">हिन्दी</div></div>
+      <div class="rv"><div class="txt dev">त्वं का असि?</div><div class="tag">संस्कृतम्</div></div>
+    </div>
+    <div class="seal rv" aria-hidden="true">※</div>
+    <div class="site rv">www.Mirv<b>Ana</b>.ai</div>
+  </div>
+</section>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.15});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
